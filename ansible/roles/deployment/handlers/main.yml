@@ -1,0 +1,10 @@
+---
+- name: Check application status
+  shell: docker-compose ps
+  args:
+    chdir: /app
+  register: app_status
+  
+- name: Show application status
+  debug:
+    var: app_status.stdout_lines

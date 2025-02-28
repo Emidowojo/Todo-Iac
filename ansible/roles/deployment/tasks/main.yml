@@ -1,0 +1,36 @@
+---
+- name: Create app directory
+  file:
+    path: /app
+    state: directory
+    mode: '0755'
+
+- name: Clone application repository
+  git:
+    repo: "{{ app_repo_url }}"
+    dest: /app
+    force: yes
+
+- name: Create Traefik configuration directory
+  file:
+    path: /app/traefik_data
+    state: directory
+    mode: '0755'
+
+- name: Create acme.json file for Traefik
+  file:
+    path: /app/acme.json
+    state: touch
+    mode: '0600'
+
+- name: Create .env file
+  template:
+    src: .env.j2
+    dest: /app/.env
+    mode: '0644'
+
+- name: Deploy application with Docker Compose
+  shell: docker-compose up -d
+  args:
+    chdir: /app
+  notify: Check application status

@@ -1,0 +1,11 @@
+---
+- name: Deploy Todo Application
+  hosts: app_servers
+  become: yes
+  vars:
+    app_repo_url: "{{ app_repo_url }}"
+    domain_name: "{{ domain_name }}"
+    
+  roles:
+    - dependencies
+    - deployment
