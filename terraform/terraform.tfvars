@@ -1,0 +1,6 @@
+aws_region = "us-west-2"
+instance_type = "t3.micro"
+ssh_key_name = "todo-app-key"
+app_repo_url = "https://github.com/Emidowojo/DevOps-Stage-4.git"
+domain_name = "emidowojo.site"
+ssh_private_key_path = "~/.ssh/todo-app-key"

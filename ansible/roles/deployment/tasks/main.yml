@@ -28,9 +28,12 @@
     src: .env.j2
     dest: /app/.env
     mode: '0644'
+  vars:
+    jwt_secret: "xVL1wT6JhZ6Q6+wRduw4DOEiaIl297lMHaGjuDbbVyu+FhNigxjSbY1hGs0t1H4I"
 
 - name: Deploy application with Docker Compose
   shell: docker-compose up -d
   args:
     chdir: /app
+  become: yes
   notify: Check application status

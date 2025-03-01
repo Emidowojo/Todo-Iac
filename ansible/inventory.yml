@@ -1,0 +1,6 @@
+app_servers:
+  hosts:
+    44.246.201.150:
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: ~/.ssh/todo-app-key
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"

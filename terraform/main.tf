@@ -11,6 +11,7 @@ resource "aws_instance" "app_server" {
   provisioner "remote-exec" {
     inline = ["echo 'Server is ready!'"]
 
+
     connection {
       type        = "ssh"
       user        = "ubuntu"
@@ -20,12 +21,16 @@ resource "aws_instance" "app_server" {
   }
   
   provisioner "local-exec" {
-    command = "echo '[app_servers]\\n${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=${var.ssh_private_key_path}' > ../ansible/inventory.yml"
-  }
+  command = <<EOT
+    echo '[app_servers]
+    ${self.public_ip} ansible_user=ubuntu \
+    ansible_ssh_private_key_file=${var.ssh_private_key_path}' > ../ansible/inventory.yml
+  EOT
+}
   
   provisioner "local-exec" {
-    command = "cd ../ansible && ansible-playbook -i inventory.yml site.yml -e 'app_repo_url=${var.app_repo_url} domain_name=${var.domain_name}'"
-  }
+  command = "cd ../ansible && ansible-playbook -i inventory.yml site.yml -e 'app_repo_url=${var.app_repo_url} domain_name=${var.domain_name}'"
+}
 }
 
 data "aws_ami" "ubuntu" {

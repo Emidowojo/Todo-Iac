@@ -1,6 +1,13 @@
 ---
 - name: Start Docker service
-  service:
+  systemd:
     name: docker
     state: started
     enabled: yes
+  become: yes
+
+- name: Wait for Docker to be available
+  wait_for:
+    path: /var/run/docker.sock
+    timeout: 30
+  become: yes
