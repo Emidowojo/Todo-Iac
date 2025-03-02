@@ -31,7 +31,7 @@ resource "aws_security_group" "app_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["102.89.44.51/32"]  # Keep this updated with your current IP
+    cidr_blocks = ["0.0.0.0/0"]  # Keep this updated with your current IP
   }
   
   # Outbound

@@ -1,5 +1,5 @@
 aws_region = "us-west-2"
-instance_type = "t3.micro"
+instance_type = "t3.medium"
 ssh_key_name = "todo-app-key"
 app_repo_url = "https://github.com/Emidowojo/DevOps-Stage-4.git"
 domain_name = "emidowojo.site"

@@ -23,8 +23,7 @@ resource "aws_instance" "app_server" {
   provisioner "local-exec" {
   command = <<EOT
     echo '[app_servers]
-    ${self.public_ip} ansible_user=ubuntu \
-    ansible_ssh_private_key_file=${var.ssh_private_key_path}' > ../ansible/inventory.yml
+    ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=${var.ssh_private_key_path}' > ../ansible/inventory.ini 
   EOT
 }
   
