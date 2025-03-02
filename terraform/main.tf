@@ -25,15 +25,20 @@ resource "aws_instance" "app_server" {
     echo '[app_servers]
     ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=${var.ssh_private_key_path}' > ../ansible/inventory.ini 
   EOT
-}
+  }
+} 
   
+
+resource "null_resource"  "ansible" {
   provisioner "local-exec" {
-  command = "cd ../ansible && ansible-playbook -i inventory.yml site.yml -e 'app_repo_url=${var.app_repo_url} domain_name=${var.domain_name}'"
-}
+    command = "cd ../ansible && ansible-playbook -i inventory.ini site.yml -e 'app_repo_url=${var.app_repo_url} domain_name=${var.domain_name}'"
+  }
+
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
+
   
   filter {
     name   = "name"
